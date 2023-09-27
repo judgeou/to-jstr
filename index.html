@@ -23,6 +23,11 @@
       <textarea id="dst"></textarea>
     </div>
 
+    <div>
+      <input type="text" id="src_u" style="width: 90%" placeholder="转换字符串到 \u">
+      <input type="text" id="dst_u" style="width: 90%">
+    </div>
+
     <script>
 
       const srcEl = document.querySelector("#src");
@@ -34,7 +39,17 @@
 
         const dstStr = strArr.join(" +\n");
         dstEl.value = dstStr;
-      });
+      })
+
+      const src_u_el = document.querySelector('#src_u')
+      const dst_u_el = document.querySelector('#dst_u')
+
+      src_u_el.addEventListener('input', e => {
+        const src_u_str = src_u_el.value
+        const dst_str = [...src_u_str].map(s => '\\u' + s.charCodeAt(0).toString(16)).join('')
+
+        dst_u_el.value = dst_str
+      })
     </script>
   </body>
 </html>
