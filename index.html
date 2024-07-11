@@ -29,6 +29,12 @@
     </div>
 
     <script>
+      function toUnicodeEscape(str) {
+          return str.split('').map(char => {
+              let code = char.charCodeAt(0).toString(16).padStart(4, '0');
+              return '\\u' + code;
+          }).join('');
+      }
 
       const srcEl = document.querySelector("#src");
       const dstEl = document.querySelector("#dst");
@@ -46,7 +52,7 @@
 
       src_u_el.addEventListener('input', e => {
         const src_u_str = src_u_el.value
-        const dst_str = [...src_u_str].map(s => '\\u' + s.charCodeAt(0).toString(16)).join('')
+        const dst_str = toUnicodeEscape(src_u_str)
 
         dst_u_el.value = dst_str
       })
